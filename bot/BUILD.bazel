@@ -8,6 +8,8 @@ rust_binary(
     deps = [
         "@crates//:env_logger",
         "@crates//:log",
+        "@crates//:anyhow",
+        "@crates//:clap",
         "@crates//:tokio",
         "@crates//:twilight-cache-inmemory",
         "@crates//:twilight-model",
@@ -15,7 +17,6 @@ rust_binary(
         "@crates//:twilight-gateway",
         "@crates//:tracing",
         "@crates//:tracing-subscriber",
-        "@crates//:anyhow",
     ],
 )
 
