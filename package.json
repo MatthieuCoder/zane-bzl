@@ -1,3 +1,21 @@
 {
-  "private": true
+  "private": true,
+  "pnpm": {
+    "//packageExtensions": "Fix missing dependencies in npm packages, see https://pnpm.io/package_json#pnpmpackageextensions",
+    "packageExtensions": {
+      "@typescript-eslint/eslint-plugin": {
+        "peerDependencies": {
+          "eslint": "*"
+        }
+      },
+      "postcss-loader": {
+        "peerDependencies": {
+          "postcss-flexbugs-fixes": "*",
+          "postcss-preset-env": "*",
+          "postcss-normalize": "*",
+          "tailwindcss": "*"
+        }
+      }
+    }
+  }
 }

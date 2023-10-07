@@ -13,13 +13,14 @@ CRA_DEPS = [
     "//frontend/src",
     "//frontend/public",
     ":package_json",
+    ":tailwind.config.js",
     ":node_modules/eslint-config-react-app",
-    ":node_modules/.bin/react-scripts",
     ":node_modules/react-dom",
     ":node_modules/react-scripts",
     ":node_modules/react",
     ":node_modules/typescript",
     ":node_modules/web-vitals",
+    ":node_modules/tailwindcss",
 ]
 
 cra_bin.react_scripts(
@@ -44,7 +45,7 @@ js_run_devserver(
     name = "start",
     args = ["start"],
     command = "node_modules/.bin/react-scripts",
-    data = CRA_DEPS + ["//frontend:package.json"],
+    data = CRA_DEPS + ["//frontend:package.json", ":node_modules/.bin/react-scripts"],
     chdir = package_name(),
 )
 

@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: ac15073877bd55a8b0b699028b870f8d
+
 importers:
 
   .: {}
@@ -37,6 +39,9 @@ importers:
       react-scripts:
         specifier: 5.0.1
         version: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.51.0)(react@18.2.0)(typescript@4.9.3)
+      tailwindcss:
+        specifier: ^3.3.3
+        version: 3.3.3
       web-vitals:
         specifier: 3.1.0
         version: 3.1.0
@@ -8636,17 +8641,25 @@ packages:
       yaml: 2.3.2
     dev: false
 
-  /postcss-loader@6.2.1(postcss@8.4.31)(webpack@5.88.2):
+  /postcss-loader@6.2.1(postcss-flexbugs-fixes@5.0.2)(postcss-normalize@10.0.1)(postcss-preset-env@7.8.3)(postcss@8.4.31)(tailwindcss@3.3.3)(webpack@5.88.2):
     resolution: {integrity: sha512-WbbYpmAaKcux/P66bZ40bpWsBucjx/TTgVVzRZ9yUO8yQfVBlameJ0ZGVaPfH64hNSBh63a+ICP5nqOpBA0w+Q==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       postcss: ^7.0.0 || ^8.0.1
+      postcss-flexbugs-fixes: '*'
+      postcss-normalize: '*'
+      postcss-preset-env: '*'
+      tailwindcss: '*'
       webpack: ^5.0.0
     dependencies:
       cosmiconfig: 7.1.0
       klona: 2.0.6
       postcss: 8.4.31
+      postcss-flexbugs-fixes: 5.0.2(postcss@8.4.31)
+      postcss-normalize: 10.0.1(browserslist@4.22.1)(postcss@8.4.31)
+      postcss-preset-env: 7.8.3(postcss@8.4.31)
       semver: 7.5.4
+      tailwindcss: 3.3.3
       webpack: 5.88.2
     dev: false
 
@@ -9378,7 +9391,7 @@ packages:
       mini-css-extract-plugin: 2.7.6(webpack@5.88.2)
       postcss: 8.4.31
       postcss-flexbugs-fixes: 5.0.2(postcss@8.4.31)
-      postcss-loader: 6.2.1(postcss@8.4.31)(webpack@5.88.2)
+      postcss-loader: 6.2.1(postcss-flexbugs-fixes@5.0.2)(postcss-normalize@10.0.1)(postcss-preset-env@7.8.3)(postcss@8.4.31)(tailwindcss@3.3.3)(webpack@5.88.2)
       postcss-normalize: 10.0.1(browserslist@4.22.1)(postcss@8.4.31)
       postcss-preset-env: 7.8.3(postcss@8.4.31)
       prompts: 2.4.2

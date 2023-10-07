@@ -18,6 +18,7 @@ npm.npm_translate_lock(
     public_hoist_packages = {
         "eslint-config-react-app": ["frontend"],
         "eslint@8.51.0": ["frontend"],
+        "tailwindcss@3.3.3": ["frontend"]
     },
     verify_node_modules_ignored = "//:.bazelignore",
 )
