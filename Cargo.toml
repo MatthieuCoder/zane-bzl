@@ -1,0 +1,16 @@
+[package]
+name = "zane"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.75"
+env_logger = "0.10.0"
+log = "0.4.17"
+tokio = { version = "1.32.0", features = ["macros", "signal", "rt-multi-thread"] }
+tracing = "0.1.37"
+tracing-subscriber = "0.3.17"
+twilight-cache-inmemory = "0.15.4"
+twilight-gateway = "0.15.4"
+twilight-http = "0.15.4"
+twilight-model = "0.15.4"

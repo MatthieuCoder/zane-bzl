@@ -1,0 +1,41 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+
+rust_binary(
+    name = "zane",
+    srcs = ["src/main.rs"],
+    deps = [
+        "@crates//:env_logger",
+        "@crates//:log",
+        "@crates//:tokio",
+        "@crates//:twilight-cache-inmemory",
+        "@crates//:twilight-model",
+        "@crates//:twilight-http",
+        "@crates//:twilight-gateway",
+        "@crates//:tracing",
+        "@crates//:tracing-subscriber",
+        "@crates//:anyhow",
+    ],
+)
+
+pkg_tar(
+    name = "zane_bin_layer",
+    srcs = [":zane"],
+)
+
+oci_image(
+    name = "zane_image",
+    base = "@debian_base",
+    tars = [":zane_bin_layer"],
+    entrypoint = ["/zane"],
+)
+
+# $ bazel build :tarball
+# $ docker load --input $(bazel cquery --output=files :tarball)
+# $ docker run --rm gcr.io/example:latest
+oci_tarball(
+    name = "zane_image_tarball",
+    image = ":zane_image",
+    repo_tags = ["gcr.io/example:latest"],
+)

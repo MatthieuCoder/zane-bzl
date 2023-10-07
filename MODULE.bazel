@@ -1,0 +1,51 @@
+module(
+    name = "zane",
+    version = "1.0",
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.4.2")
+bazel_dep(name = "rules_pkg", version = "0.9.1")
+bazel_dep(name = "rules_oci", version = "1.4.0")
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.toolchains(
+    name = "oci",
+    crane_version = "v0.14.0",
+    zot_version = "",
+)
+
+oci.pull(
+    name = "debian_base",
+    digest = "sha256:cac248b86084e8740410031cb3ed0e6a0d7ba63cfae8b3761b84f18d087b028d",
+    image = "docker.io/library/debian",
+)
+
+use_repo(oci, "debian_base")
+
+bazel_dep(name = "rules_rust", version = "0.0.0")
+git_override(
+    module_name = "rules_rust",
+    remote = "git@github.com:matts1/rules_rust.git",
+    commit = "d61fc8eddccd23d124c6a6477c1b8bc63203cdfe"
+)
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(edition = "2021")
+use_repo(
+    rust,
+    "rust_toolchains",
+)
+
+register_toolchains("@rust_toolchains//:all")
+
+
+crate = use_extension("@rules_rust//rust:extensions.bzl", "crate")
+crate.from_cargo(
+    cargo_lockfile = "//:Cargo.lock",
+    manifests = ["//:Cargo.toml"],
+)
+
+use_repo(
+    crate,
+    crates = "zane_crates",
+)
