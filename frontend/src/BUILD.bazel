@@ -24,6 +24,11 @@ TEST_PATTERNS = [
     "*.spec.ts",
 ]
 
+TRANSPILER = partial.make(
+    swc,
+    swcrc = "//frontend:.swcrc",
+)
+
 js_library(
     name = "src",
     srcs = glob(ASSET_PATTERNS),
@@ -40,6 +45,7 @@ ts_project(
         exclude = TEST_PATTERNS,
     ),
     declaration = True,
+    transpiler = TRANSPILER,
     resolve_json_module = True,
     tsconfig = "//frontend:tsconfig",
     deps = [
@@ -53,13 +59,15 @@ ts_project(
     name = "src_test_ts",
     srcs = glob(TEST_PATTERNS),
     declaration = True,
+    transpiler = TRANSPILER,
     resolve_json_module = True,
     tsconfig = "//frontend:tsconfig",
     deps = [
         ":src_ts",
         "//frontend:node_modules/@testing-library/jest-dom",
         "//frontend:node_modules/@testing-library/react",
-        "//frontend:node_modules/@types/jest",
+        "//frontend:node_modules/@jest/types",
+        "//frontend:node_modules/@jest/globals",
     ],
 )
 
@@ -72,6 +80,8 @@ jest_test(
         "//frontend:node_modules/jest-environment-jsdom",
         "//frontend:node_modules/jest-transform-stub",
         "//frontend:node_modules/react",
+        "//frontend:node_modules/@jest/types",
+        "//frontend:node_modules/@jest/globals",
     ],
     node_modules = "//frontend:node_modules",
 )

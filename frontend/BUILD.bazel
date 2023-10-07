@@ -3,6 +3,9 @@ load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//frontend:react-scripts/package_json.bzl", cra_bin = "bin")
 load("@npm//frontend:tsconfig-to-swcconfig/package_json.bzl", tsconfig_to_swcconfig = "bin")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 
 npm_link_all_packages()
 
@@ -72,4 +75,33 @@ js_library(
     name = "jest_config",
     srcs = ["jest.config.js"],
     visibility = ["//visibility:public"],
+)
+
+pkg_files(
+    name = "build_files",
+    strip_prefix = "build/",
+    srcs = [":build"]
+)
+
+pkg_tar(
+    name = "frontend_tar",
+    srcs = [":build_files"],
+    package_dir = "/usr/share/nginx/html"
+)
+
+oci_image(
+    name = "frontend_image",
+    base = "@nginx_debian_slim",
+    tars = [
+      ":frontend_tar",
+    ],
+    # Intentionally omit cmd/entrypoint to default to the base nginx container's cmd/entrypoint.
+    # entrypoint = [],
+    # cmd = [],
+)
+
+oci_tarball(
+    name = "frontend_tarball",
+    image = ":frontend_image",
+    repo_tags = ["ourfrontend:latest"],
 )

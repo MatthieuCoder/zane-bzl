@@ -77,4 +77,11 @@ oci.pull(
     image = "docker.io/library/debian",
 )
 
+oci.pull(
+    name = "nginx_debian_slim",
+    digest = "sha256:6b06964cdbbc517102ce5e0cef95152f3c6a7ef703e4057cb574539de91f72e6",
+    image = "docker.io/library/nginx",
+)
+
 use_repo(oci, "debian_base")
+use_repo(oci, "nginx_debian_slim")
